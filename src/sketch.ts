@@ -22,17 +22,66 @@
 
 import p5 from 'p5';
 
+import { Random } from './random';
+
+const random = Random.random;
+
 import '../assets/style/sketch.css';
 
 function sketch(ctx: p5): void {
+    const squares: { x: number; y: number; r: number; g: number; b: number; s: number }[] = [];
+    const circles: { x: number; y: number; r: number; g: number; b: number; s: number }[] = [];
+
+    let circlesTotal;
+    let squaresTotal;
+
     ctx.setup = (): void => {
-        ctx.createCanvas(720, 720);
+        const size: number = Math.min(window.innerWidth, window.innerHeight);
+        ctx.createCanvas(size, size);
+
+        squaresTotal = Math.floor(random(1, 25));
+
+        for (let i = 0; i < squaresTotal; i++) {
+            squares.push({
+                x: random(0, ctx.width),
+                y: random(0, ctx.height),
+                r: Math.floor(random(0, 255)),
+                g: Math.floor(random(0, 255)),
+                b: Math.floor(random(0, 255)),
+                s: random(25, 100)
+            });
+        }
+
+        circlesTotal = Math.floor(random(1, 25));
+
+        for (let i = 0; i < circlesTotal; i++) {
+            circles.push({
+                x: random(0, ctx.width),
+                y: random(0, ctx.height),
+                r: Math.floor(random(0, 255)),
+                g: Math.floor(random(0, 255)),
+                b: Math.floor(random(0, 255)),
+                s: random(25, 100)
+            });
+        }
     };
 
     ctx.draw = (): void => {
         ctx.background(0);
-        ctx.fill(255);
-        ctx.ellipse(ctx.mouseX, ctx.mouseY, 100, 100);
+
+        squares.forEach((square) => {
+            ctx.rectMode(ctx.CENTER);
+            ctx.noStroke();
+            ctx.fill(square.r, square.g, square.b);
+            ctx.rect(square.x, square.y, square.s, square.s);
+        });
+
+        circles.forEach((circle) => {
+            ctx.stroke(circle.r, circle.g, circle.b);
+            ctx.strokeWeight(5);
+            ctx.noFill();
+            ctx.ellipse(circle.x, circle.y, circle.s, circle.s);
+        });
     };
 }
 

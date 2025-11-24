@@ -31,7 +31,6 @@ module.exports = {
             import: './src/sketch.ts'
         }
     },
-    devtool: 'inline-source-map',
     module: {
         rules: [
             {
@@ -50,9 +49,9 @@ module.exports = {
     },
     plugins: [
         new HtmlWebpackPlugin({
-            title: 'template sketch',
             inject: 'body',
-            favicon: './assets/icon/favicon.ico'
+            favicon: './assets/icon/favicon.ico',
+            template: './template/template.html'
         }),
         new MiniCssExtractPlugin()
     ],
