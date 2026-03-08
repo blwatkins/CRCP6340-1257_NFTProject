@@ -1,3 +1,6 @@
+> [!CAUTION]
+> # This repository has been archived.
+
 # p5.js TypeScript Template
 
 A template project for using
